@@ -13,14 +13,22 @@ public class Javagrammer implements JavagrammerConstants {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case LPAREN:
+      case RPAREN:
       case LSQPAREN:
       case RSQPAREN:
       case LBRACE:
       case RBRACE:
+      case AT:
+      case QUOTE:
       case SEMICOLON:
       case DOT:
+      case COMMA:
       case ASSIGN:
+      case LESS:
+      case GREATER:
       case LE:
+      case GE:
       case NE:
       case PLUS:
       case FLOAT:
@@ -29,6 +37,8 @@ public class Javagrammer implements JavagrammerConstants {
       case DIV:
       case AND:
       case OR:
+      case PIPE:
+      case BIT_AND:
       case NOT:
       case BOOLEAN:
       case PACKAGE:
@@ -51,7 +61,7 @@ public class Javagrammer implements JavagrammerConstants {
       case TRUE:
       case PRINT:
       case VOID:
-      case DEFINE:
+      case OBJECT:
       case INTEGER_LITERAL:
       case FLOAT_LITERAL:
       case STRING_LITERAL:
@@ -76,65 +86,79 @@ public class Javagrammer implements JavagrammerConstants {
   static final public Statement Statement() throws ParseException {
    NodeChoice n0;
    PackageDeclaration n1;
-   ImportStatement n2;
-   OtherStatement n3;
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case PACKAGE:
+   StaticImportStatement n2;
+   ImportStatement n3;
+   OtherStatement n4;
+    if (jj_2_1(2147483647)) {
       n1 = PackageDeclaration();
         n0 = new NodeChoice(n1, 0);
-      break;
-    case IMPORT:
-      n2 = ImportStatement();
+    } else if (jj_2_2(2147483647)) {
+      n2 = StaticImportStatement();
         n0 = new NodeChoice(n2, 1);
-      break;
-    case LSQPAREN:
-    case RSQPAREN:
-    case LBRACE:
-    case RBRACE:
-    case SEMICOLON:
-    case DOT:
-    case ASSIGN:
-    case LE:
-    case NE:
-    case PLUS:
-    case FLOAT:
-    case MINUS:
-    case MULT:
-    case DIV:
-    case AND:
-    case OR:
-    case NOT:
-    case BOOLEAN:
-    case CLASS:
-    case INTERFACE:
-    case ELSE:
-    case EXTENDS:
-    case FALSE:
-    case IF:
-    case WHILE:
-    case INTEGER:
-    case MAIN:
-    case NEW:
-    case PUBLIC:
-    case RETURN:
-    case STATIC:
-    case STRING:
-    case THIS:
-    case TRUE:
-    case PRINT:
-    case VOID:
-    case DEFINE:
-    case INTEGER_LITERAL:
-    case FLOAT_LITERAL:
-    case STRING_LITERAL:
-    case IDENTIFIER:
-      n3 = OtherStatement();
+    } else if (jj_2_3(2147483647)) {
+      n3 = ImportStatement();
         n0 = new NodeChoice(n3, 2);
-      break;
-    default:
-      jj_la1[1] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
+    } else {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case LPAREN:
+      case RPAREN:
+      case LSQPAREN:
+      case RSQPAREN:
+      case LBRACE:
+      case RBRACE:
+      case AT:
+      case QUOTE:
+      case SEMICOLON:
+      case DOT:
+      case COMMA:
+      case ASSIGN:
+      case LESS:
+      case GREATER:
+      case LE:
+      case GE:
+      case NE:
+      case PLUS:
+      case FLOAT:
+      case MINUS:
+      case MULT:
+      case DIV:
+      case AND:
+      case OR:
+      case PIPE:
+      case BIT_AND:
+      case NOT:
+      case BOOLEAN:
+      case CLASS:
+      case INTERFACE:
+      case ELSE:
+      case EXTENDS:
+      case FALSE:
+      case IF:
+      case WHILE:
+      case INTEGER:
+      case MAIN:
+      case NEW:
+      case PUBLIC:
+      case RETURN:
+      case STATIC:
+      case STRING:
+      case THIS:
+      case TRUE:
+      case PRINT:
+      case VOID:
+      case OBJECT:
+      case INTEGER_LITERAL:
+      case FLOAT_LITERAL:
+      case STRING_LITERAL:
+      case IDENTIFIER:
+        n4 = OtherStatement();
+        n0 = new NodeChoice(n4, 3);
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
     }
      {if (true) return new Statement(n0);}
     throw new Error("Missing return statement in function");
@@ -152,6 +176,25 @@ public class Javagrammer implements JavagrammerConstants {
     n4 = jj_consume_token(SEMICOLON);
             n3 = JTBToolkit.makeNodeToken(n4);
      {if (true) return new PackageDeclaration(n0,n2,n3);}
+    throw new Error("Missing return statement in function");
+  }
+
+  static final public StaticImportStatement StaticImportStatement() throws ParseException {
+   NodeToken n0;
+   Token n1;
+   NodeToken n2;
+   Token n3;
+   DotIdentifier n4;
+   NodeToken n5;
+   Token n6;
+    n1 = jj_consume_token(IMPORT);
+                 n0 = JTBToolkit.makeNodeToken(n1);
+    n3 = jj_consume_token(STATIC);
+                 n2 = JTBToolkit.makeNodeToken(n3);
+    n4 = DotIdentifier();
+    n6 = jj_consume_token(SEMICOLON);
+            n5 = JTBToolkit.makeNodeToken(n6);
+     {if (true) return new StaticImportStatement(n0,n2,n4,n5);}
     throw new Error("Missing return statement in function");
   }
 
@@ -314,211 +357,281 @@ public class Javagrammer implements JavagrammerConstants {
    Token n80;
    NodeToken n81;
    Token n82;
+   NodeToken n83;
+   Token n84;
+   NodeToken n85;
+   Token n86;
+   NodeToken n87;
+   Token n88;
+   NodeToken n89;
+   Token n90;
+   NodeToken n91;
+   Token n92;
+   NodeToken n93;
+   Token n94;
+   NodeToken n95;
+   Token n96;
+   NodeToken n97;
+   Token n98;
+   NodeToken n99;
+   Token n100;
+   NodeToken n101;
+   Token n102;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case LSQPAREN:
-      n2 = jj_consume_token(LSQPAREN);
-               n1 = JTBToolkit.makeNodeToken(n2);
+    case LPAREN:
+      n2 = jj_consume_token(LPAREN);
+                    n1 = JTBToolkit.makeNodeToken(n2);
         n0 = new NodeChoice(n1, 0);
       break;
-    case RSQPAREN:
-      n4 = jj_consume_token(RSQPAREN);
-               n3 = JTBToolkit.makeNodeToken(n4);
+    case RPAREN:
+      n4 = jj_consume_token(RPAREN);
+                    n3 = JTBToolkit.makeNodeToken(n4);
         n0 = new NodeChoice(n3, 1);
       break;
-    case LBRACE:
-      n6 = jj_consume_token(LBRACE);
-               n5 = JTBToolkit.makeNodeToken(n6);
+    case LSQPAREN:
+      n6 = jj_consume_token(LSQPAREN);
+                      n5 = JTBToolkit.makeNodeToken(n6);
         n0 = new NodeChoice(n5, 2);
       break;
-    case RBRACE:
-      n8 = jj_consume_token(RBRACE);
-               n7 = JTBToolkit.makeNodeToken(n8);
+    case RSQPAREN:
+      n8 = jj_consume_token(RSQPAREN);
+                      n7 = JTBToolkit.makeNodeToken(n8);
         n0 = new NodeChoice(n7, 3);
       break;
-    case SEMICOLON:
-      n10 = jj_consume_token(SEMICOLON);
-                n9 = JTBToolkit.makeNodeToken(n10);
+    case LBRACE:
+      n10 = jj_consume_token(LBRACE);
+                     n9 = JTBToolkit.makeNodeToken(n10);
         n0 = new NodeChoice(n9, 4);
       break;
-    case DOT:
-      n12 = jj_consume_token(DOT);
-                n11 = JTBToolkit.makeNodeToken(n12);
+    case RBRACE:
+      n12 = jj_consume_token(RBRACE);
+                     n11 = JTBToolkit.makeNodeToken(n12);
         n0 = new NodeChoice(n11, 5);
       break;
-    case ASSIGN:
-      n14 = jj_consume_token(ASSIGN);
-                n13 = JTBToolkit.makeNodeToken(n14);
+    case AT:
+      n14 = jj_consume_token(AT);
+                 n13 = JTBToolkit.makeNodeToken(n14);
         n0 = new NodeChoice(n13, 6);
       break;
-    case LE:
-      n16 = jj_consume_token(LE);
-                 n15 = JTBToolkit.makeNodeToken(n16);
+    case QUOTE:
+      n16 = jj_consume_token(QUOTE);
+                    n15 = JTBToolkit.makeNodeToken(n16);
         n0 = new NodeChoice(n15, 7);
       break;
-    case NE:
-      n18 = jj_consume_token(NE);
-                 n17 = JTBToolkit.makeNodeToken(n18);
+    case SEMICOLON:
+      n18 = jj_consume_token(SEMICOLON);
+                        n17 = JTBToolkit.makeNodeToken(n18);
         n0 = new NodeChoice(n17, 8);
       break;
-    case PLUS:
-      n20 = jj_consume_token(PLUS);
-                n19 = JTBToolkit.makeNodeToken(n20);
+    case DOT:
+      n20 = jj_consume_token(DOT);
+                  n19 = JTBToolkit.makeNodeToken(n20);
         n0 = new NodeChoice(n19, 9);
       break;
-    case FLOAT:
-      n22 = jj_consume_token(FLOAT);
+    case COMMA:
+      n22 = jj_consume_token(COMMA);
                     n21 = JTBToolkit.makeNodeToken(n22);
         n0 = new NodeChoice(n21, 10);
       break;
-    case MINUS:
-      n24 = jj_consume_token(MINUS);
-                n23 = JTBToolkit.makeNodeToken(n24);
+    case ASSIGN:
+      n24 = jj_consume_token(ASSIGN);
+                     n23 = JTBToolkit.makeNodeToken(n24);
         n0 = new NodeChoice(n23, 11);
       break;
-    case MULT:
-      n26 = jj_consume_token(MULT);
-                n25 = JTBToolkit.makeNodeToken(n26);
+    case GREATER:
+      n26 = jj_consume_token(GREATER);
+                      n25 = JTBToolkit.makeNodeToken(n26);
         n0 = new NodeChoice(n25, 12);
       break;
-    case DIV:
-      n28 = jj_consume_token(DIV);
-                n27 = JTBToolkit.makeNodeToken(n28);
+    case GE:
+      n28 = jj_consume_token(GE);
+                 n27 = JTBToolkit.makeNodeToken(n28);
         n0 = new NodeChoice(n27, 13);
       break;
-    case AND:
-      n30 = jj_consume_token(AND);
-                 n29 = JTBToolkit.makeNodeToken(n30);
+    case LESS:
+      n30 = jj_consume_token(LESS);
+                   n29 = JTBToolkit.makeNodeToken(n30);
         n0 = new NodeChoice(n29, 14);
       break;
-    case OR:
-      n32 = jj_consume_token(OR);
+    case LE:
+      n32 = jj_consume_token(LE);
                  n31 = JTBToolkit.makeNodeToken(n32);
         n0 = new NodeChoice(n31, 15);
       break;
-    case NOT:
-      n34 = jj_consume_token(NOT);
-                n33 = JTBToolkit.makeNodeToken(n34);
+    case NE:
+      n34 = jj_consume_token(NE);
+                 n33 = JTBToolkit.makeNodeToken(n34);
         n0 = new NodeChoice(n33, 16);
       break;
-    case BOOLEAN:
-      n36 = jj_consume_token(BOOLEAN);
-                      n35 = JTBToolkit.makeNodeToken(n36);
+    case PLUS:
+      n36 = jj_consume_token(PLUS);
+                   n35 = JTBToolkit.makeNodeToken(n36);
         n0 = new NodeChoice(n35, 17);
       break;
-    case CLASS:
-      n38 = jj_consume_token(CLASS);
+    case FLOAT:
+      n38 = jj_consume_token(FLOAT);
                     n37 = JTBToolkit.makeNodeToken(n38);
         n0 = new NodeChoice(n37, 18);
       break;
-    case INTERFACE:
-      n40 = jj_consume_token(INTERFACE);
-                        n39 = JTBToolkit.makeNodeToken(n40);
+    case MINUS:
+      n40 = jj_consume_token(MINUS);
+                    n39 = JTBToolkit.makeNodeToken(n40);
         n0 = new NodeChoice(n39, 19);
       break;
-    case ELSE:
-      n42 = jj_consume_token(ELSE);
+    case MULT:
+      n42 = jj_consume_token(MULT);
                    n41 = JTBToolkit.makeNodeToken(n42);
         n0 = new NodeChoice(n41, 20);
       break;
-    case EXTENDS:
-      n44 = jj_consume_token(EXTENDS);
-                      n43 = JTBToolkit.makeNodeToken(n44);
+    case DIV:
+      n44 = jj_consume_token(DIV);
+                  n43 = JTBToolkit.makeNodeToken(n44);
         n0 = new NodeChoice(n43, 21);
       break;
-    case FALSE:
-      n46 = jj_consume_token(FALSE);
-                    n45 = JTBToolkit.makeNodeToken(n46);
+    case AND:
+      n46 = jj_consume_token(AND);
+                  n45 = JTBToolkit.makeNodeToken(n46);
         n0 = new NodeChoice(n45, 22);
       break;
-    case IF:
-      n48 = jj_consume_token(IF);
+    case OR:
+      n48 = jj_consume_token(OR);
                  n47 = JTBToolkit.makeNodeToken(n48);
         n0 = new NodeChoice(n47, 23);
       break;
-    case WHILE:
-      n50 = jj_consume_token(WHILE);
-                    n49 = JTBToolkit.makeNodeToken(n50);
+    case PIPE:
+      n50 = jj_consume_token(PIPE);
+                   n49 = JTBToolkit.makeNodeToken(n50);
         n0 = new NodeChoice(n49, 24);
       break;
-    case INTEGER:
-      n52 = jj_consume_token(INTEGER);
-                  n51 = JTBToolkit.makeNodeToken(n52);
+    case BIT_AND:
+      n52 = jj_consume_token(BIT_AND);
+                      n51 = JTBToolkit.makeNodeToken(n52);
         n0 = new NodeChoice(n51, 25);
       break;
-    case MAIN:
-      n54 = jj_consume_token(MAIN);
-                   n53 = JTBToolkit.makeNodeToken(n54);
+    case NOT:
+      n54 = jj_consume_token(NOT);
+                  n53 = JTBToolkit.makeNodeToken(n54);
         n0 = new NodeChoice(n53, 26);
       break;
-    case NEW:
-      n56 = jj_consume_token(NEW);
-                  n55 = JTBToolkit.makeNodeToken(n56);
+    case BOOLEAN:
+      n56 = jj_consume_token(BOOLEAN);
+                      n55 = JTBToolkit.makeNodeToken(n56);
         n0 = new NodeChoice(n55, 27);
       break;
-    case PUBLIC:
-      n58 = jj_consume_token(PUBLIC);
-                     n57 = JTBToolkit.makeNodeToken(n58);
+    case CLASS:
+      n58 = jj_consume_token(CLASS);
+                    n57 = JTBToolkit.makeNodeToken(n58);
         n0 = new NodeChoice(n57, 28);
       break;
-    case RETURN:
-      n60 = jj_consume_token(RETURN);
-                     n59 = JTBToolkit.makeNodeToken(n60);
+    case INTERFACE:
+      n60 = jj_consume_token(INTERFACE);
+                        n59 = JTBToolkit.makeNodeToken(n60);
         n0 = new NodeChoice(n59, 29);
       break;
-    case STATIC:
-      n62 = jj_consume_token(STATIC);
-                     n61 = JTBToolkit.makeNodeToken(n62);
+    case ELSE:
+      n62 = jj_consume_token(ELSE);
+                   n61 = JTBToolkit.makeNodeToken(n62);
         n0 = new NodeChoice(n61, 30);
       break;
-    case STRING:
-      n64 = jj_consume_token(STRING);
-                     n63 = JTBToolkit.makeNodeToken(n64);
+    case EXTENDS:
+      n64 = jj_consume_token(EXTENDS);
+                      n63 = JTBToolkit.makeNodeToken(n64);
         n0 = new NodeChoice(n63, 31);
       break;
-    case THIS:
-      n66 = jj_consume_token(THIS);
-                   n65 = JTBToolkit.makeNodeToken(n66);
+    case FALSE:
+      n66 = jj_consume_token(FALSE);
+                    n65 = JTBToolkit.makeNodeToken(n66);
         n0 = new NodeChoice(n65, 32);
       break;
-    case TRUE:
-      n68 = jj_consume_token(TRUE);
-                   n67 = JTBToolkit.makeNodeToken(n68);
+    case IF:
+      n68 = jj_consume_token(IF);
+                 n67 = JTBToolkit.makeNodeToken(n68);
         n0 = new NodeChoice(n67, 33);
       break;
-    case PRINT:
-      n70 = jj_consume_token(PRINT);
-                                 n69 = JTBToolkit.makeNodeToken(n70);
+    case WHILE:
+      n70 = jj_consume_token(WHILE);
+                    n69 = JTBToolkit.makeNodeToken(n70);
         n0 = new NodeChoice(n69, 34);
       break;
-    case VOID:
-      n72 = jj_consume_token(VOID);
-                   n71 = JTBToolkit.makeNodeToken(n72);
+    case INTEGER:
+      n72 = jj_consume_token(INTEGER);
+                      n71 = JTBToolkit.makeNodeToken(n72);
         n0 = new NodeChoice(n71, 35);
       break;
-    case DEFINE:
-      n74 = jj_consume_token(DEFINE);
-                      n73 = JTBToolkit.makeNodeToken(n74);
+    case MAIN:
+      n74 = jj_consume_token(MAIN);
+                   n73 = JTBToolkit.makeNodeToken(n74);
         n0 = new NodeChoice(n73, 36);
       break;
-    case FLOAT_LITERAL:
-      n76 = jj_consume_token(FLOAT_LITERAL);
-                            n75 = JTBToolkit.makeNodeToken(n76);
+    case NEW:
+      n76 = jj_consume_token(NEW);
+                  n75 = JTBToolkit.makeNodeToken(n76);
         n0 = new NodeChoice(n75, 37);
       break;
-    case INTEGER_LITERAL:
-      n78 = jj_consume_token(INTEGER_LITERAL);
-                              n77 = JTBToolkit.makeNodeToken(n78);
+    case PUBLIC:
+      n78 = jj_consume_token(PUBLIC);
+                     n77 = JTBToolkit.makeNodeToken(n78);
         n0 = new NodeChoice(n77, 38);
       break;
-    case IDENTIFIER:
-      n80 = jj_consume_token(IDENTIFIER);
-                         n79 = JTBToolkit.makeNodeToken(n80);
+    case RETURN:
+      n80 = jj_consume_token(RETURN);
+                     n79 = JTBToolkit.makeNodeToken(n80);
         n0 = new NodeChoice(n79, 39);
       break;
-    case STRING_LITERAL:
-      n82 = jj_consume_token(STRING_LITERAL);
-                             n81 = JTBToolkit.makeNodeToken(n82);
+    case STATIC:
+      n82 = jj_consume_token(STATIC);
+                     n81 = JTBToolkit.makeNodeToken(n82);
         n0 = new NodeChoice(n81, 40);
+      break;
+    case STRING:
+      n84 = jj_consume_token(STRING);
+                     n83 = JTBToolkit.makeNodeToken(n84);
+        n0 = new NodeChoice(n83, 41);
+      break;
+    case THIS:
+      n86 = jj_consume_token(THIS);
+                   n85 = JTBToolkit.makeNodeToken(n86);
+        n0 = new NodeChoice(n85, 42);
+      break;
+    case TRUE:
+      n88 = jj_consume_token(TRUE);
+                   n87 = JTBToolkit.makeNodeToken(n88);
+        n0 = new NodeChoice(n87, 43);
+      break;
+    case PRINT:
+      n90 = jj_consume_token(PRINT);
+                    n89 = JTBToolkit.makeNodeToken(n90);
+        n0 = new NodeChoice(n89, 44);
+      break;
+    case VOID:
+      n92 = jj_consume_token(VOID);
+                   n91 = JTBToolkit.makeNodeToken(n92);
+        n0 = new NodeChoice(n91, 45);
+      break;
+    case OBJECT:
+      n94 = jj_consume_token(OBJECT);
+                     n93 = JTBToolkit.makeNodeToken(n94);
+        n0 = new NodeChoice(n93, 46);
+      break;
+    case INTEGER_LITERAL:
+      n96 = jj_consume_token(INTEGER_LITERAL);
+                              n95 = JTBToolkit.makeNodeToken(n96);
+        n0 = new NodeChoice(n95, 47);
+      break;
+    case FLOAT_LITERAL:
+      n98 = jj_consume_token(FLOAT_LITERAL);
+                            n97 = JTBToolkit.makeNodeToken(n98);
+        n0 = new NodeChoice(n97, 48);
+      break;
+    case STRING_LITERAL:
+      n100 = jj_consume_token(STRING_LITERAL);
+                              n99 = JTBToolkit.makeNodeToken(n100);
+        n0 = new NodeChoice(n99, 49);
+      break;
+    case IDENTIFIER:
+      n102 = jj_consume_token(IDENTIFIER);
+                          n101 = JTBToolkit.makeNodeToken(n102);
+        n0 = new NodeChoice(n101, 50);
       break;
     default:
       jj_la1[4] = jj_gen;
@@ -538,6 +651,42 @@ public class Javagrammer implements JavagrammerConstants {
     throw new Error("Missing return statement in function");
   }
 
+  static private boolean jj_2_1(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_1(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(0, xla); }
+  }
+
+  static private boolean jj_2_2(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_2(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(1, xla); }
+  }
+
+  static private boolean jj_2_3(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_3(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(2, xla); }
+  }
+
+  static private boolean jj_3_1() {
+    if (jj_scan_token(PACKAGE)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_3() {
+    if (jj_scan_token(IMPORT)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2() {
+    if (jj_scan_token(64)) return true;
+    return false;
+  }
+
   static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
   static public JavagrammerTokenManager token_source;
@@ -547,20 +696,30 @@ public class Javagrammer implements JavagrammerConstants {
   /** Next token. */
   static public Token jj_nt;
   static private int jj_ntk;
+  static private Token jj_scanpos, jj_lastpos;
+  static private int jj_la;
   static private int jj_gen;
   static final private int[] jj_la1 = new int[5];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
+  static private int[] jj_la1_2;
   static {
       jj_la1_init_0();
       jj_la1_init_1();
+      jj_la1_init_2();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0xfffff800,0xfffff800,0x10000,0x800000,0x9ffff800,};
+      jj_la1_0 = new int[] {0xfffffe00,0xfffffe00,0x40000,0x20000000,0xfffffe00,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x3fffff,0x3fffff,0x0,0x200000,0x3fffff,};
+      jj_la1_1 = new int[] {0x3fffffff,0x3fffff9f,0x0,0x20000000,0x3fffff9f,};
    }
+   private static void jj_la1_init_2() {
+      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,};
+   }
+  static final private JJCalls[] jj_2_rtns = new JJCalls[3];
+  static private boolean jj_rescan = false;
+  static private int jj_gc = 0;
 
   /** Constructor with InputStream. */
   public Javagrammer(java.io.InputStream stream) {
@@ -581,6 +740,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -595,6 +755,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor. */
@@ -612,6 +773,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -622,6 +784,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor with generated Token Manager. */
@@ -638,6 +801,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -647,6 +811,7 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     jj_gen = 0;
     for (int i = 0; i < 5; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -656,11 +821,44 @@ public class Javagrammer implements JavagrammerConstants {
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
+      if (++jj_gc > 100) {
+        jj_gc = 0;
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+          JJCalls c = jj_2_rtns[i];
+          while (c != null) {
+            if (c.gen < jj_gen) c.first = null;
+            c = c.next;
+          }
+        }
+      }
       return token;
     }
     token = oldToken;
     jj_kind = kind;
     throw generateParseException();
+  }
+
+  static private final class LookaheadSuccess extends java.lang.Error { }
+  static final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+  static private boolean jj_scan_token(int kind) {
+    if (jj_scanpos == jj_lastpos) {
+      jj_la--;
+      if (jj_scanpos.next == null) {
+        jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
+      } else {
+        jj_lastpos = jj_scanpos = jj_scanpos.next;
+      }
+    } else {
+      jj_scanpos = jj_scanpos.next;
+    }
+    if (jj_rescan) {
+      int i = 0; Token tok = token;
+      while (tok != null && tok != jj_scanpos) { i++; tok = tok.next; }
+      if (tok != null) jj_add_error_token(kind, i);
+    }
+    if (jj_scanpos.kind != kind) return true;
+    if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+    return false;
   }
 
 
@@ -693,11 +891,41 @@ public class Javagrammer implements JavagrammerConstants {
   static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   static private int[] jj_expentry;
   static private int jj_kind = -1;
+  static private int[] jj_lasttokens = new int[100];
+  static private int jj_endpos;
+
+  static private void jj_add_error_token(int kind, int pos) {
+    if (pos >= 100) return;
+    if (pos == jj_endpos + 1) {
+      jj_lasttokens[jj_endpos++] = kind;
+    } else if (jj_endpos != 0) {
+      jj_expentry = new int[jj_endpos];
+      for (int i = 0; i < jj_endpos; i++) {
+        jj_expentry[i] = jj_lasttokens[i];
+      }
+      boolean exists = false;
+      for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
+        exists = true;
+        int[] oldentry = (int[])(it.next());
+        if (oldentry.length == jj_expentry.length) {
+          for (int i = 0; i < jj_expentry.length; i++) {
+            if (oldentry[i] != jj_expentry[i]) {
+              exists = false;
+              break;
+            }
+          }
+          if (exists) break;
+        }
+      }
+      if (!exists) jj_expentries.add(jj_expentry);
+      if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+    }
+  }
 
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[56];
+    boolean[] la1tokens = new boolean[65];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -711,16 +939,22 @@ public class Javagrammer implements JavagrammerConstants {
           if ((jj_la1_1[i] & (1<<j)) != 0) {
             la1tokens[32+j] = true;
           }
+          if ((jj_la1_2[i] & (1<<j)) != 0) {
+            la1tokens[64+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 56; i++) {
+    for (int i = 0; i < 65; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
         jj_expentries.add(jj_expentry);
       }
     }
+    jj_endpos = 0;
+    jj_rescan_token();
+    jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
       exptokseq[i] = jj_expentries.get(i);
@@ -734,6 +968,43 @@ public class Javagrammer implements JavagrammerConstants {
 
   /** Disable tracing. */
   static final public void disable_tracing() {
+  }
+
+  static private void jj_rescan_token() {
+    jj_rescan = true;
+    for (int i = 0; i < 3; i++) {
+    try {
+      JJCalls p = jj_2_rtns[i];
+      do {
+        if (p.gen > jj_gen) {
+          jj_la = p.arg; jj_lastpos = jj_scanpos = p.first;
+          switch (i) {
+            case 0: jj_3_1(); break;
+            case 1: jj_3_2(); break;
+            case 2: jj_3_3(); break;
+          }
+        }
+        p = p.next;
+      } while (p != null);
+      } catch(LookaheadSuccess ls) { }
+    }
+    jj_rescan = false;
+  }
+
+  static private void jj_save(int index, int xla) {
+    JJCalls p = jj_2_rtns[index];
+    while (p.gen > jj_gen) {
+      if (p.next == null) { p = p.next = new JJCalls(); break; }
+      p = p.next;
+    }
+    p.gen = jj_gen + xla - jj_la; p.first = token; p.arg = xla;
+  }
+
+  static final class JJCalls {
+    int gen;
+    Token first;
+    int arg;
+    JJCalls next;
   }
 
 }

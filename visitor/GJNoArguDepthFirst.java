@@ -10,27 +10,23 @@ import java.util.*;
  * Provides default methods which visit each node in the tree in depth-first
  * order.  Your visitors may extend this class.
  */
-public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
+public class GJNoArguDepthFirst implements GJNoArguVisitor<String> {
    //
    // Auto class visitors--probably don't need to be overridden.
    //
-   public R visit(NodeList n) {
-      R _ret=null;
-      int _count=0;
+   public String visit(NodeList n) {
+      String _ret=null;
       for ( Enumeration<Node> e = n.elements(); e.hasMoreElements(); ) {
          e.nextElement().accept(this);
-         _count++;
       }
       return _ret;
    }
 
-   public R visit(NodeListOptional n) {
+   public String visit(NodeListOptional n) {
       if ( n.present() ) {
-         R _ret=null;
-         int _count=0;
+         String _ret=null;
          for ( Enumeration<Node> e = n.elements(); e.hasMoreElements(); ) {
             e.nextElement().accept(this);
-            _count++;
          }
          return _ret;
       }
@@ -38,35 +34,75 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
          return null;
    }
 
-   public R visit(NodeOptional n) {
+   public String visit(NodeOptional n) {
       if ( n.present() )
          return n.node.accept(this);
       else
          return null;
    }
 
-   public R visit(NodeSequence n) {
-      R _ret=null;
-      int _count=0;
+   public String visit(NodeSequence n) {
+      String _ret=null;
       for ( Enumeration<Node> e = n.elements(); e.hasMoreElements(); ) {
          e.nextElement().accept(this);
-         _count++;
       }
       return _ret;
    }
 
-   public R visit(NodeToken n) { return null; }
+   public String visit(NodeToken n) { return null; }
 
    //
    // User-generated visitor methods below
    //
 
+   Vector<String> solve(String frm, String imp) {
+      Vector<String> v = new Vector<String>();
+      int n = imp.length();
+      int cnt = 0;
+      String temp = "";
+      if (frm == null || frm == "") {
+         for(int i=0;i<n;i++) {
+            if (imp.charAt(i) == ',') {
+               v.insertElementAt(temp, cnt++);
+               temp = "";
+            } else {
+               temp += imp.charAt(i);
+            }
+         }
+         if (temp != "") {
+            v.insertElementAt(temp, cnt++);
+         } else {
+            // TODO: consider this
+            // v.insertElementAt(".", cnt++);
+         }
+      } else {
+         for(int i=0;i<n;i++) {
+            if (imp.charAt(i) == ',') {
+               if (temp != "") {
+                  v.insertElementAt(frm + '.' + temp, cnt++);
+               } else {
+                  v.insertElementAt(frm, cnt++);
+               }
+               temp = "";
+            } else {
+               temp += imp.charAt(i);
+            }
+         }
+         if (temp != "") {
+            v.insertElementAt(frm + "." + temp, cnt++);
+         } else {
+            v.insertElementAt(frm,cnt++);
+         }
+      }
+      return v;   
+   }
+
    /**
     * f0 -> ( Statement() )*
     * f1 -> <EOF>
     */
-   public R visit(Goal n) {
-      R _ret=null;
+   public String visit(Goal n) {
+      String _ret=null;
       n.f0.accept(this);
       n.f1.accept(this);
       return _ret;
@@ -74,11 +110,12 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
 
    /**
     * f0 -> PackageDeclaration()
+    *       | StaticImportStatement()
     *       | ImportStatement()
     *       | OtherStatement()
     */
-   public R visit(Statement n) {
-      R _ret=null;
+   public String visit(Statement n) {
+      String _ret=null;
       n.f0.accept(this);
       return _ret;
    }
@@ -88,12 +125,22 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
     * f1 -> DotIdentifier()
     * f2 -> ";"
     */
-   public R visit(PackageDeclaration n) {
-      R _ret=null;
-      n.f0.accept(this);
-      n.f1.accept(this);
-      n.f2.accept(this);
-      return _ret;
+   public String visit(PackageDeclaration n) {
+      String temp = n.f1.accept(this);
+      System.out.println(temp);
+      return null;
+   }
+
+   /**
+    * f0 -> "import"
+    * f1 -> "static"
+    * f2 -> DotIdentifier()
+    * f3 -> ";"
+    */
+   public String visit(StaticImportStatement n) {
+      String temp = n.f2.accept(this);
+      System.out.println(temp);
+      return null;
    }
 
    /**
@@ -101,43 +148,44 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
     * f1 -> DotIdentifier()
     * f2 -> ";"
     */
-   public R visit(ImportStatement n) {
-      R _ret=null;
-      n.f0.accept(this);
-      n.f1.accept(this);
-      n.f2.accept(this);
-      return _ret;
+   public String visit(ImportStatement n) {
+      String temp = n.f1.accept(this);
+      System.out.println(temp);
+      return null;
    }
 
    /**
     * f0 -> <IDENTIFIER>
     * f1 -> ( RemainingIdentifier() )*
     */
-   public R visit(DotIdentifier n) {
-      R _ret=null;
-      n.f0.accept(this);
-      n.f1.accept(this);
-      return _ret;
+   public String visit(DotIdentifier n) {
+      String str = n.f0.tokenImage;
+      NodeListOptional nodeListOptional = (NodeListOptional) n.f1;
+      for (Node x:nodeListOptional.nodes) {
+         RemainingIdentifier remainingIdentifier = (RemainingIdentifier) x;
+         String temp = remainingIdentifier.accept(this);
+         str += temp;
+      }
+      return str;
    }
 
    /**
     * f0 -> "."
     * f1 -> ( Identifier() | Asterisk() )
     */
-   public R visit(RemainingIdentifier n) {
-      R _ret=null;
-      n.f0.accept(this);
-      n.f1.accept(this);
-      return _ret;
+   public String visit(RemainingIdentifier n) {
+      Node node =  n.f1.choice;
+      if (node instanceof Identifier) {
+         return n.f0.tokenImage + n.f1.accept(this);
+      } 
+      return "";
    }
 
    /**
     * f0 -> <MULT>
     */
-   public R visit(Asterisk n) {
-      R _ret=null;
-      n.f0.accept(this);
-      return _ret;
+   public String visit(Asterisk n) {
+      return n.f0.tokenImage;
    }
 
    /**
@@ -148,6 +196,9 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
     *       | ";"
     *       | "."
     *       | "="
+    *       | ">"
+    *       | ">="
+    *       | "<"
     *       | "<="
     *       | "!="
     *       | "+"
@@ -176,15 +227,15 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
     *       | "this"
     *       | "true"
     *       | "System.out.println"
-    *       | "void"
-    *       | "#define"
+    *       | <VOID>
     *       | <FLOAT_LITERAL>
     *       | <INTEGER_LITERAL>
     *       | <IDENTIFIER>
     *       | <STRING_LITERAL>
+    *       | <OBJECT>
     */
-   public R visit(OtherStatement n) {
-      R _ret=null;
+   public String visit(OtherStatement n) {
+      String _ret=null;
       n.f0.accept(this);
       return _ret;
    }
@@ -192,10 +243,8 @@ public class GJNoArguDepthFirst<R> implements GJNoArguVisitor<R> {
    /**
     * f0 -> <IDENTIFIER>
     */
-   public R visit(Identifier n) {
-      R _ret=null;
-      n.f0.accept(this);
-      return _ret;
+   public String visit(Identifier n) {
+      return n.f0.tokenImage;
    }
 
 }

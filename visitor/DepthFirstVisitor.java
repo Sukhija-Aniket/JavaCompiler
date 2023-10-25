@@ -52,6 +52,7 @@ public class DepthFirstVisitor implements Visitor {
 
    /**
     * f0 -> PackageDeclaration()
+    *       | StaticImportStatement()
     *       | ImportStatement()
     *       | OtherStatement()
     */
@@ -68,6 +69,19 @@ public class DepthFirstVisitor implements Visitor {
       n.f0.accept(this);
       n.f1.accept(this);
       n.f2.accept(this);
+   }
+
+   /**
+    * f0 -> "import"
+    * f1 -> "static"
+    * f2 -> DotIdentifier()
+    * f3 -> ";"
+    */
+   public void visit(StaticImportStatement n) {
+      n.f0.accept(this);
+      n.f1.accept(this);
+      n.f2.accept(this);
+      n.f3.accept(this);
    }
 
    /**
@@ -107,47 +121,57 @@ public class DepthFirstVisitor implements Visitor {
    }
 
    /**
-    * f0 -> "["
-    *       | "]"
-    *       | "{"
-    *       | "}"
-    *       | ";"
-    *       | "."
-    *       | "="
-    *       | "<="
-    *       | "!="
-    *       | "+"
-    *       | "float"
-    *       | "-"
-    *       | "*"
-    *       | "/"
-    *       | "&&"
-    *       | "||"
-    *       | "!"
-    *       | "boolean"
-    *       | "class"
-    *       | "interface"
-    *       | "else"
-    *       | "extends"
-    *       | "false"
-    *       | "if"
-    *       | "while"
-    *       | "int"
-    *       | "main"
-    *       | "new"
-    *       | "public"
-    *       | "return"
-    *       | "static"
-    *       | "String"
-    *       | "this"
-    *       | "true"
-    *       | "System.out.println"
-    *       | "void"
-    *       | "#define"
-    *       | <FLOAT_LITERAL>
+    * f0 -> <LPAREN>
+    *       | <RPAREN>
+    *       | <LSQPAREN>
+    *       | <RSQPAREN>
+    *       | <LBRACE>
+    *       | <RBRACE>
+    *       | <AT>
+    *       | <QUOTE>
+    *       | <SEMICOLON>
+    *       | <DOT>
+    *       | <COMMA>
+    *       | <ASSIGN>
+    *       | <GREATER>
+    *       | <GE>
+    *       | <LESS>
+    *       | <LE>
+    *       | <NE>
+    *       | <PLUS>
+    *       | <FLOAT>
+    *       | <MINUS>
+    *       | <MULT>
+    *       | <DIV>
+    *       | <AND>
+    *       | <OR>
+    *       | <PIPE>
+    *       | <BIT_AND>
+    *       | <NOT>
+    *       | <BOOLEAN>
+    *       | <CLASS>
+    *       | <INTERFACE>
+    *       | <ELSE>
+    *       | <EXTENDS>
+    *       | <FALSE>
+    *       | <IF>
+    *       | <WHILE>
+    *       | <INTEGER>
+    *       | <MAIN>
+    *       | <NEW>
+    *       | <PUBLIC>
+    *       | <RETURN>
+    *       | <STATIC>
+    *       | <STRING>
+    *       | <THIS>
+    *       | <TRUE>
+    *       | <PRINT>
+    *       | <VOID>
+    *       | <OBJECT>
     *       | <INTEGER_LITERAL>
-    *       | <IDENTIFIER>
+    *       | <FLOAT_LITERAL>
     *       | <STRING_LITERAL>
+    *       | <IDENTIFIER>
     */
    public void visit(OtherStatement n) {
       n.f0.accept(this);

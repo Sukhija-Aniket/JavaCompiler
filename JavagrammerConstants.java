@@ -27,87 +27,103 @@ public interface JavagrammerConstants {
   /** RegularExpression Id. */
   int RBRACE = 14;
   /** RegularExpression Id. */
-  int SEMICOLON = 15;
+  int AT = 15;
   /** RegularExpression Id. */
-  int DOT = 16;
+  int QUOTE = 16;
   /** RegularExpression Id. */
-  int ASSIGN = 17;
+  int SEMICOLON = 17;
   /** RegularExpression Id. */
-  int LE = 18;
+  int DOT = 18;
   /** RegularExpression Id. */
-  int NE = 19;
+  int COMMA = 19;
   /** RegularExpression Id. */
-  int PLUS = 20;
+  int ASSIGN = 20;
   /** RegularExpression Id. */
-  int FLOAT = 21;
+  int LESS = 21;
   /** RegularExpression Id. */
-  int MINUS = 22;
+  int GREATER = 22;
   /** RegularExpression Id. */
-  int MULT = 23;
+  int LE = 23;
   /** RegularExpression Id. */
-  int DIV = 24;
+  int GE = 24;
   /** RegularExpression Id. */
-  int AND = 25;
+  int NE = 25;
   /** RegularExpression Id. */
-  int OR = 26;
+  int PLUS = 26;
   /** RegularExpression Id. */
-  int NOT = 27;
+  int FLOAT = 27;
   /** RegularExpression Id. */
-  int BOOLEAN = 28;
+  int MINUS = 28;
   /** RegularExpression Id. */
-  int PACKAGE = 29;
+  int MULT = 29;
   /** RegularExpression Id. */
-  int IMPORT = 30;
+  int DIV = 30;
   /** RegularExpression Id. */
-  int CLASS = 31;
+  int AND = 31;
   /** RegularExpression Id. */
-  int INTERFACE = 32;
+  int OR = 32;
   /** RegularExpression Id. */
-  int ELSE = 33;
+  int PIPE = 33;
   /** RegularExpression Id. */
-  int EXTENDS = 34;
+  int BIT_AND = 34;
   /** RegularExpression Id. */
-  int FALSE = 35;
+  int NOT = 35;
   /** RegularExpression Id. */
-  int IF = 36;
+  int BOOLEAN = 36;
   /** RegularExpression Id. */
-  int WHILE = 37;
+  int PACKAGE = 37;
   /** RegularExpression Id. */
-  int INTEGER = 38;
+  int IMPORT = 38;
   /** RegularExpression Id. */
-  int MAIN = 39;
+  int CLASS = 39;
   /** RegularExpression Id. */
-  int NEW = 40;
+  int INTERFACE = 40;
   /** RegularExpression Id. */
-  int PUBLIC = 41;
+  int ELSE = 41;
   /** RegularExpression Id. */
-  int RETURN = 42;
+  int EXTENDS = 42;
   /** RegularExpression Id. */
-  int STATIC = 43;
+  int FALSE = 43;
   /** RegularExpression Id. */
-  int STRING = 44;
+  int IF = 44;
   /** RegularExpression Id. */
-  int THIS = 45;
+  int WHILE = 45;
   /** RegularExpression Id. */
-  int TRUE = 46;
+  int INTEGER = 46;
   /** RegularExpression Id. */
-  int PRINT = 47;
+  int MAIN = 47;
   /** RegularExpression Id. */
-  int VOID = 48;
+  int NEW = 48;
   /** RegularExpression Id. */
-  int DEFINE = 49;
+  int PUBLIC = 49;
   /** RegularExpression Id. */
-  int INTEGER_LITERAL = 50;
+  int RETURN = 50;
   /** RegularExpression Id. */
-  int FLOAT_LITERAL = 51;
+  int STATIC = 51;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 52;
+  int STRING = 52;
   /** RegularExpression Id. */
-  int IDENTIFIER = 53;
+  int THIS = 53;
   /** RegularExpression Id. */
-  int LETTER = 54;
+  int TRUE = 54;
   /** RegularExpression Id. */
-  int DIGIT = 55;
+  int PRINT = 55;
+  /** RegularExpression Id. */
+  int VOID = 56;
+  /** RegularExpression Id. */
+  int OBJECT = 57;
+  /** RegularExpression Id. */
+  int INTEGER_LITERAL = 58;
+  /** RegularExpression Id. */
+  int FLOAT_LITERAL = 59;
+  /** RegularExpression Id. */
+  int STRING_LITERAL = 60;
+  /** RegularExpression Id. */
+  int IDENTIFIER = 61;
+  /** RegularExpression Id. */
+  int LETTER = 62;
+  /** RegularExpression Id. */
+  int DIGIT = 63;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -129,10 +145,16 @@ public interface JavagrammerConstants {
     "\"]\"",
     "\"{\"",
     "\"}\"",
+    "\"@\"",
+    "\"\\\'\"",
     "\";\"",
     "\".\"",
+    "\",\"",
     "\"=\"",
+    "\"<\"",
+    "\">\"",
     "\"<=\"",
+    "\">=\"",
     "\"!=\"",
     "\"+\"",
     "\"float\"",
@@ -141,6 +163,8 @@ public interface JavagrammerConstants {
     "\"/\"",
     "\"&&\"",
     "\"||\"",
+    "\"|\"",
+    "\"&\"",
     "\"!\"",
     "\"boolean\"",
     "\"package\"",
@@ -163,13 +187,14 @@ public interface JavagrammerConstants {
     "\"true\"",
     "\"System.out.println\"",
     "\"void\"",
-    "\"#define\"",
+    "\"Object\"",
     "<INTEGER_LITERAL>",
     "<FLOAT_LITERAL>",
     "<STRING_LITERAL>",
     "<IDENTIFIER>",
     "<LETTER>",
     "<DIGIT>",
+    "\"import static\"",
   };
 
 }
